@@ -1,0 +1,11 @@
+# Source and destination remote computer names
+$sourceComputer = "SOURCE_REMOTE_COMPUTER_NAME"
+$destinationComputer = "DESTINATION_REMOTE_COMPUTER_NAME"
+
+# Retrieve printers from the source remote computer
+$printers = Get-Printer -ComputerName $sourceComputer
+
+# Install printers on the destination remote computer
+foreach ($printer in $printers) {
+    Add-Printer -ConnectionName "\\$destinationComputer\$($printer.Name)"
+}
