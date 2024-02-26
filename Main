@@ -7,5 +7,7 @@ $printers = Get-Printer -ComputerName $sourceComputer
 
 # Install printers on the destination remote computer
 foreach ($printer in $printers) {
-    Add-Printer -ConnectionName "\\$destinationComputer\$($printer.Name)"
+    $port = $printer.PortName
+    Add-PrinterPort -Name $port -ComputerName $destinationComputer
+    Add-Printer -ConnectionName "\\$destinationComputer\$port"
 }
